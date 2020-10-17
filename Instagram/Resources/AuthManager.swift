@@ -17,7 +17,18 @@ public class AuthManager{
         
     }
     
-    public func LoginUser(username:String?,email:String?,pass:String){
+    public func LoginUser(username:String?,email:String?,pass:String,completion:((Bool) -> Void)){
+        if let email = email {
+            Auth.auth().signIn(withEmail: email, password: pass) { (res, err) in
+                guard res != nil , err == nil else {
+                    completion(false)
+                    return
+                }
+                completion(true)
+            }
+        }else if let username = username {
+            print(username)
+        }
         
     }
 }
